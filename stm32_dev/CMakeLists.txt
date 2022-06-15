@@ -15,7 +15,7 @@ find_package(CMSIS COMPONENTS ${STM_BOARD} REQUIRED)
 #find_package(HAL COMPONENTS ${STM_BOARD}  REQUIRED)
 
 set(PROJECT_SOURCES
-    main.c
+    src/main.c
 )
 
 include_directories(
