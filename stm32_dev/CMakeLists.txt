@@ -10,6 +10,9 @@ stm32_fetch_hal(F4 H7)
 find_package(CMSIS COMPONENTS STM32H743ZI_M7  REQUIRED)
 #find_package(HAL COMPONENTS STM32F4 REQUIRED)
 
+
+#include_directories("${CMAKE_SOURCE_DIR}/build/_deps/stm32-cmsis-h7-src/Include")
+
 set(PROJECT_SOURCES
     src/main.c
 )

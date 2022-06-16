@@ -1,1 +1,2 @@
 stm32_dev/build/*
+.sys_headers

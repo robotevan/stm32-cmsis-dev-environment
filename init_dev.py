@@ -6,12 +6,19 @@ from tracemalloc import start
 DOCKER_IMG = "stm32-dev-ubuntu"
 # get unix style path
 STM_DEV_PATH = os.path.join(os.getcwd(), "stm32_dev").replace("\\", "/")
-# docker path to dev env
+# Docker system headers path
+HOST_SYS_HEADERS_PATH = os.path.join(os.getcwd(), ".sys_headers").replace("\\", "/")
 
 
 def build_image():
     build_cmd = "docker build -t " + DOCKER_IMG + " ."
     os.system(build_cmd)
+
+def copy_docker_headers():
+    docker_cp_cmd = "docker run --rm -v " + HOST_SYS_HEADERS_PATH + ":/tmp/sys_headers " + \
+                    DOCKER_IMG + " bash -c \"cp -r usr/include/* tmp/sys_headers/\""
+    os.system(docker_cp_cmd)
+
 
 def start_interactive():
     docker_cmd = "docker run --rm -it -v " + STM_DEV_PATH + ":/stm32_dev " + DOCKER_IMG
@@ -37,6 +44,6 @@ if __name__ == "__main__":
     elif args[0] == "--interactive" or args[0] == "-it":
         start_interactive()
     elif args[0] == "--flash" or args[0] == "-f":
-        flash_application()
+        copy_docker_headers()
     else:
         print("Invalid argument!")
