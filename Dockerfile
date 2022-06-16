@@ -7,18 +7,21 @@ ARG STM32_CMAKE_GIT="https://github.com/ObKo/stm32-cmake.git"
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
+    stlink-tools  \
     build-essential \
+    gcc-multilib \
     git \
     cmake \
     wget && \
     apt-get clean 
 
-RUN wget -O arm-toolchain.tar.bz2 ${ARM_TOOLCHAIN_URL} &&\
-    mkdir /toolchain && \
-    tar xvf arm-toolchain.tar.bz2 --strip-components=1 -C /toolchain && \
-    rm arm-toolchain.tar.bz2 &&\
-    cd .. &&\ 
+RUN wget -O gcc-arm-none-eabi.tar.bz2 ${ARM_TOOLCHAIN_URL} &&\
+    mkdir /opt/gcc-arm-none-eabi && \
+    tar xvf gcc-arm-none-eabi.tar.bz2 --strip-components=1 -C /opt/gcc-arm-none-eabi && \
+    rm gcc-arm-none-eabi.tar.bz2 && \
+    cd .. && \ 
     git clone ${STM32_CMAKE_GIT}
 
 ENV STM32_CMAKE "/stm32-cmake"
-ENV PATH "/toolchain/bin:$PATH"
+ENV PATH "/opt/gcc-arm-none-eabi/bin:$PATH"
+

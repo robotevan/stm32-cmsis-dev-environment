@@ -1,2 +1,1 @@
-stm32_dev/startup
-stm32_dev/startup
+stm32_dev/build/*
